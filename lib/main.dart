@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:testing_app/nav.dart';
+import 'package:testing_app/screens/home/home_screen.dart';
 import 'package:testing_app/screens/sign_in/sign_in_screen.dart';
 
 void main() {
@@ -35,11 +37,11 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return MediaQuery(
-              data: MediaQueryData(),
-              child: MaterialApp(
-                home: SignInScreen(),
-              ));
+          return MaterialApp(
+            home: Scaffold(
+              bottomNavigationBar: Nav(),
+            ),
+          );
         }
 
         return Container(color: Colors.green);
