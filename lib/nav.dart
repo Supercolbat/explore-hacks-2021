@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testing_app/screens/home/home_screen.dart';
-import 'package:testing_app/screens/sign_in/sign_in_screen.dart';
+import 'package:explore_hacks_2021/screens/home/home_screen.dart';
+import 'package:explore_hacks_2021/constants/colors.dart';
 
 class Nav extends StatefulWidget {
   @override

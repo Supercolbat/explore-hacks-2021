@@ -1,5 +1,5 @@
+import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:testing_app/constants/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

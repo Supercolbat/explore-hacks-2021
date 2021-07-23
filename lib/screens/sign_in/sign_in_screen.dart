@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:testing_app/constants/colors.dart';
-import 'package:testing_app/screens/sign_in/facebook_btn.dart';
-import 'package:testing_app/screens/sign_in/google_btn.dart';
+import 'package:explore_hacks_2021/constants/colors.dart';
+import 'package:explore_hacks_2021/screens/sign_in/facebook_btn.dart';
+import 'package:explore_hacks_2021/screens/sign_in/google_btn.dart';
 
 class SignInScreen extends StatelessWidget {
   @override

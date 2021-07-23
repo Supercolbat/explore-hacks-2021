@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:testing_app/nav.dart';
-import 'package:testing_app/screens/home/home_screen.dart';
-import 'package:testing_app/screens/sign_in/sign_in_screen.dart';
+import 'package:explore_hacks_2021/nav.dart';
+import 'package:explore_hacks_2021/screens/home/home_screen.dart';
+import 'package:explore_hacks_2021/screens/sign_in/sign_in_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,11 +37,12 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            home: Scaffold(
-              bottomNavigationBar: Nav(),
-            ),
-          );
+          // return MaterialApp(
+          //   home: Scaffold(
+          //     bottomNavigationBar: Nav(),
+          //   ),
+          // );
+          return SignInScreen();
         }
 
         return Container(color: Colors.green);
