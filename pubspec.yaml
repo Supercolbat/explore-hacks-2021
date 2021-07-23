@@ -66,14 +66,14 @@ flutter:
   fonts:
     - family: Geometria
       fonts:
-        - asset: fonts/Geometria-Regular.ttf
-        - asset: fonts/Geometria-Italic.ttf
+        - asset: assets/fonts/Geometria-Regular.ttf
+        - asset: assets/fonts/Geometria-Italic.ttf
           style: italic
-        - asset: fonts/Geometria-Bold.ttf
+        - asset: assets/fonts/Geometria-Bold.ttf
           weight: 700
-        - asset: fonts/Geometria-Medium.ttf
+        - asset: assets/fonts/Geometria-Medium.ttf
           weight: 500
-        - asset: fonts/Geometria-Light.ttf
+        - asset: assets/fonts/Geometria-Light.ttf
           weight: 300
   #
   # For details regarding fonts from package dependencies,

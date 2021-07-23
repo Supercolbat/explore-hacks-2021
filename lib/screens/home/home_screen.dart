@@ -10,7 +10,9 @@ class HomeScreen extends StatelessWidget {
       color: purple50,
       child: Column(
         children: [
-          Text(""),
+          Text(
+            "Volunteering",
+          ),
         ],
       ),
     );

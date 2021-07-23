@@ -37,12 +37,12 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          // return MaterialApp(
-          //   home: Scaffold(
-          //     bottomNavigationBar: Nav(),
-          //   ),
-          // );
-          return SignInScreen();
+          return MaterialApp(
+            home: Scaffold(
+              bottomNavigationBar: Nav(),
+            ),
+          );
+          // return SignInScreen();
         }
 
         return Container(color: Colors.green);
