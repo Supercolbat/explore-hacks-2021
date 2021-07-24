@@ -1,5 +1,6 @@
 import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:explore_hacks_2021/models/organization.dart';
+import 'package:explore_hacks_2021/screens/add_opp/add_opp_screen.dart';
 import 'package:explore_hacks_2021/screens/organizations/opp_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,12 @@ class OrgScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => addOppScreen()));
+          },
+          child: Icon(Icons.add)),
       body: Container(
           width: size.width,
           color: ColorPalette.purple50,
