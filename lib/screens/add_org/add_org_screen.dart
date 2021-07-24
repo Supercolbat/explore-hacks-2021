@@ -29,11 +29,7 @@ class addOrgPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OrganizationsScreen()),
-                    );
+                     Navigator.pop(context);
                   },
                   child: SvgPicture.asset(
                     'assets/images/left-arrow.svg',

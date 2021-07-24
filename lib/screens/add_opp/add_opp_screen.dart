@@ -48,11 +48,14 @@ class addOppScreenState extends State<addOppScreen> {
                         alignment: Alignment.centerLeft,
                         child: GestureDetector(
                           onTap: () {
+                            Navigator.pop(context);
+                            /*
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => OrganizationsScreen()),
                             );
+                            */
                           },
                           child: SvgPicture.asset(
                             'assets/images/left-arrow.svg',
