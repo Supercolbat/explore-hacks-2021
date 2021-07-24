@@ -5,8 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class OrganizationItem extends StatelessWidget {
   final Organization org;
+  final Function onPress;
 
-  OrganizationItem(this.org);
+  OrganizationItem({required this.org, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +38,19 @@ class OrganizationItem extends StatelessWidget {
               ),
             ),
             Container(
+              width: 180,
               margin: EdgeInsets.only(left: 25, top: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Test Name',
+                  Text(this.org.name,
                       style: TextStyle(
                         fontFamily: "Geometria",
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
                       )),
                   Text(
-                    "test descirption",
+                    this.org.description,
                     style: TextStyle(
                       fontFamily: "Geometria",
                       fontWeight: FontWeight.w400,
@@ -59,10 +61,13 @@ class OrganizationItem extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 85, top: 19),
-              child: SvgPicture.asset(
-                'assets/images/gear_icon.svg',
-                width: 25,
+              margin: EdgeInsets.only(top: 25),
+              child: GestureDetector(
+                onTap: () => onPress(),
+                child: SvgPicture.asset(
+                  'assets/images/gear_icon.svg',
+                  width: 22,
+                ),
               ),
             )
           ],
