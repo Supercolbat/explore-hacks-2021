@@ -4,21 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PastWorksList extends StatelessWidget {
-  final List<PastWork> pwList = [
-    new PastWork(
-        date: DateTime(2021),
-        description: 'description',
-        name: 'name',
-        organization: '123',
-        hours: 1),
-    new PastWork(
-        date: DateTime(2021),
-        description: 'description',
-        name: 'name',
-        organization: '123',
-        hours: 2),
-  ];
-
+  PastWorksList(this.pwList);
+  final List<PastWork> pwList; 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

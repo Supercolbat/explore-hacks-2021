@@ -13,129 +13,141 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     User? user = FirebaseAuth.instance.currentUser;
-    FirebaseFirestore.instance
-        .collection('users/${user?.uid ?? ''}/pastOpp')
-        .get()
-        .then((snapshot) {
-      int hours = 0;
-      List<PastWork> pw = [];
+    return FutureBuilder(
+        future: FirebaseFirestore.instance.collection('users/${user?.uid ?? ''}/pastOpp').get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            print("entering");
+            int hours = 0;
+            List<PastWork> pw = [];
 
-      List<PastWork>.from(snapshot.docs).forEach((element) {});
-
-      snapshot.docs.forEach((element) {
-        dynamic data = element.data();
-
-        pw.add(PastWork(
-            date: data['date'],
-            description: data['description'],
-            hours: data['hours'],
-            name: data['name'],
-            organization: data['organization']));
-      });
-
-      print(hours);
-    });
-    return Scaffold(
-      body: Container(
-        width: size.width,
-        color: ColorPalette.purple50,
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: size.height * 0.07),
-              height: size.height * 0.28,
-              child: Stack(
-                children: [
-                  // pfp
-                  Container(
-                    width: size.width * 0.75,
-                    height: size.height * 0.25,
-                    decoration: BoxDecoration(
-                        color: ColorPalette.purple150,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image:
-                              AssetImage('assets/images/placeholder_pfp.png'),
-                        )),
-                  ),
-                  // username card
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      width: 230,
-                      height: 55,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorPalette.purple200.withOpacity(0.25),
-                              blurRadius: 7,
-                            )
-                          ]),
-                      child: Container(
-                          margin: EdgeInsets.only(top: 6),
-                          child: Column(
-                            children: [
-                              Text(
-                                user?.displayName ?? '',
-                                style: TextStyle(
-                                  fontFamily: "Geometria",
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorPalette.purple150,
-                                  fontSize: 15,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 2),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Actively volunteering',
-                                    style: TextStyle(
-                                      fontFamily: "Geometria",
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorPalette.grey150,
-                                      fontSize: 11,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  SvgPicture.asset(
-                                    'assets/images/green_check_icon.svg',
-                                    width: 13,
-                                  )
-                                ],
-                              ),
-                            ],
-                          )),
+            (snapshot.data! as QuerySnapshot).docs.forEach((element) {
+              dynamic data = element.data();
+              print(data);
+              if (data["attended"])
+                hours += int.parse(data["hours"].toString());
+              pw.add(PastWork(
+                  attended: data["attended"],
+                  date: data['date'].toDate(),
+                  description: data['description'],
+                  hours: data['hours'],
+                  name: data['name'].toString(),
+                  organization: data['organization']));
+            });
+            
+            int attended = pw.where((PastWork work) => work.attended).toList().length;
+            print(attended);
+            print(hours);
+            print(pw);
+            return Scaffold(
+              body: Container(
+                width: size.width,
+                color: ColorPalette.purple50,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: size.height * 0.07),
+                      height: size.height * 0.28,
+                      child: Stack(
+                        children: [
+                          // pfp
+                          Container(
+                            width: size.width * 0.75,
+                            height: size.height * 0.25,
+                            decoration: BoxDecoration(
+                                color: ColorPalette.purple150,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                      'assets/images/placeholder_pfp.png'),
+                                )),
+                          ),
+                          // username card
+                          Positioned(
+                            bottom: 0,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 30),
+                              width: 230,
+                              height: 55,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: ColorPalette.purple200
+                                          .withOpacity(0.25),
+                                      blurRadius: 7,
+                                    )
+                                  ]),
+                              child: Container(
+                                  margin: EdgeInsets.only(top: 6),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        user?.displayName ?? '',
+                                        style: TextStyle(
+                                          fontFamily: "Geometria",
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorPalette.purple150,
+                                          fontSize: 15,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Actively volunteering',
+                                            style: TextStyle(
+                                              fontFamily: "Geometria",
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorPalette.grey150,
+                                              fontSize: 11,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          SvgPicture.asset(
+                                            'assets/images/green_check_icon.svg',
+                                            width: 13,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                ],
+                    SizedBox(height: 20),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          StatBox(label: "Total Hours", stat: hours.toString()),
+                          StatBox(label: "Volunteered", stat: attended.toString())
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 25),
+                    Expanded(
+                      child: PastWorksList(pw),
+                    )
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  StatBox(label: "Total Hours", stat: '20'),
-                  StatBox(label: "Volunteered", stat: "2")
-                ],
-              ),
-            ),
-            SizedBox(height: 25),
-            Expanded(
-              child: PastWorksList(),
-            )
-          ],
-        ),
-      ),
-    );
+            );
+          }
+          return CircularProgressIndicator();
+        });
   }
 }
