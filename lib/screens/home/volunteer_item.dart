@@ -29,7 +29,6 @@ class VolunteerItemState extends State<VolunteerItem> {
   }
   @override
   Widget build(BuildContext context) {
-    print(widget.opp.description);
     user_signed_up();
     Size size = MediaQuery.of(context).size;
     return Container(
