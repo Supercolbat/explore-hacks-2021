@@ -5,14 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 class VolunteerItem extends StatefulWidget {
   final Opportunity opp;
 
   VolunteerItem(this.opp);
   VolunteerItemState createState() => VolunteerItemState();
 }
-class VolunteerItemState extends State<VolunteerItem> {
 
+class VolunteerItemState extends State<VolunteerItem> {
   bool signed_up = false;
   void user_signed_up() {
     String oppid = '/opportunities/${widget.opp.doc.id}';
@@ -25,8 +26,13 @@ class VolunteerItemState extends State<VolunteerItem> {
     FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
-        .get().then((data) => setState((){signed_up = data["upcomingOpportunities"].toList().contains(oppid);}));
+        .get()
+        .then((data) => setState(() {
+              signed_up =
+                  data["upcomingOpportunities"].toList().contains(oppid);
+            }));
   }
+
   @override
   Widget build(BuildContext context) {
     user_signed_up();
@@ -68,7 +74,9 @@ class VolunteerItemState extends State<VolunteerItem> {
                 ),
                 SizedBox(height: 3),
                 Text(
-                  widget.opp.description != '' ? widget.opp.description : "No description provided :(",
+                  widget.opp.description != ''
+                      ? widget.opp.description
+                      : "No description provided :(",
                   style: TextStyle(
                     fontFamily: "Geometria",
                     fontSize: 13,
@@ -109,36 +117,42 @@ class VolunteerItemState extends State<VolunteerItem> {
                     throw new Error();
                   }
                   String uid = user.uid;
-                  var data = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+                  var data = await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(uid)
+                      .get();
                   List<String> upcoming_events = data["upcomingOpportunities"];
                   upcoming_events.add(oppid);
                   FirebaseFirestore.instance
                       .collection('users')
                       .doc(uid)
                       .update({"upcomingOpportunities": upcoming_events});
-                   showDialog(
-                    context: context,
-                    builder: (BuildContext context) => new AlertDialog(
-                      title: const Text('Signup complete'),
-                      content: new Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("You've signed up to volunteer for ${widget.opp.name}!"),
-                        ],
-                      ),
-                      actions: <Widget>[
-                        new TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    ));
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => new AlertDialog(
+                            title: const Text('Signup complete'),
+                            content: new Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                    "You've signed up to volunteer for ${widget.opp.name}!"),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              new TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Close'),
+                              ),
+                            ],
+                          ));
                 },
                 child: SvgPicture.asset(
-                  signed_up ? 'assets/images/green_check_icon.svg' : 'assets/images/plus_icon.svg',
+                  signed_up
+                      ? 'assets/images/green_check_icon.svg'
+                      : 'assets/images/plus_icon.svg',
                   width: 20,
                 ),
               )),
