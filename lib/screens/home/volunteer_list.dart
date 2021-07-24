@@ -21,12 +21,13 @@ class VolunteerListState extends State<VolunteerList> {
             Size size = MediaQuery.of(context).size;
                
             List<Opportunity> oppList = (snapshot.data! as QuerySnapshot).docs.map((QueryDocumentSnapshot d) => new Opportunity(
+               doc: d.reference,
                address: d.get("address").toString(),
                name: d.get("name").toString(),
                avaiableSpots: int.parse(d.get("availableSpots").toString()),
                description: d.get("description").toString(),
                organization: d.get("organization").toString(),
-               date: d.get("date").toDate() 
+               date: d.get("date").toDate(),
 
             )
             ).toList();
