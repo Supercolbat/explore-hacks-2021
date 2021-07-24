@@ -1,4 +1,3 @@
-import 'package:explore_hacks_2021/models/Opportunity.dart';
 import 'package:explore_hacks_2021/screens/home/volunteer_list.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_hacks_2021/constants/colors.dart';
