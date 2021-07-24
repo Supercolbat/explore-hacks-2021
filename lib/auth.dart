@@ -13,8 +13,6 @@ class AuthService {
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
 
-    print(googleSignInAccount);
-
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -27,7 +25,7 @@ class AuthService {
       try {
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
-        print(user);
+
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {

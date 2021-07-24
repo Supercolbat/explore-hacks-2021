@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:explore_hacks_2021/auth.dart';
 import 'package:explore_hacks_2021/nav.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,35 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    Future<void> addUser(User user) {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: user.email)
+          .get()
+          .then((snapshot) => {
+                if (snapshot.docs.length > 0 && snapshot.docs[0].exists)
+                  {
+                    //  FirebaseFirestore.instance.collection('users').add({
+                    //   'email': user.email,
+                    //   'name': user.displayName,
+                    //   'ownedOrganizations': [],
+                    //   'typePreference': '',
+                    //   'upcomingOpportunities': []
+                    // })
+                  }
+                else
+                  {
+                    FirebaseFirestore.instance.collection('users').add({
+                      'email': user.email,
+                      'name': user.displayName,
+                      'ownedOrganizations': [],
+                      'typePreference': '',
+                      'upcomingOpportunities': []
+                    })
+                  }
+              });
+    }
 
     return Scaffold(
       body: Container(
@@ -72,8 +102,10 @@ class _SignInScreenState extends State<SignInScreen> {
                               setState(() {
                                 _isLoading = false;
                               });
-                              print(user);
+
                               if (user != null) {
+                                await addUser(user);
+
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => Nav()),
