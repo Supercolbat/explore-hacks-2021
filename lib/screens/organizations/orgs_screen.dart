@@ -2,6 +2,7 @@ import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:explore_hacks_2021/models/organization.dart';
 import 'package:explore_hacks_2021/screens/organizations/org_screen.dart';
 import 'package:explore_hacks_2021/screens/organizations/orgs_item.dart';
+import 'package:explore_hacks_2021/screens/add_org/add_org_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -60,7 +61,12 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
             child: FittedBox(
                 fit: BoxFit.cover,
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => addOrgPage()),
+                    );
+                  },
                   backgroundColor: Colors.white,
                   child: SvgPicture.asset(
                     'assets/images/filled_plus_icon.svg',

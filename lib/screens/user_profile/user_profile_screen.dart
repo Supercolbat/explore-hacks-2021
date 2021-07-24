@@ -14,14 +14,14 @@ class UserProfileScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     User? user = FirebaseAuth.instance.currentUser;
     return FutureBuilder(
-        future: FirebaseFirestore.instance.collection('users/${user?.uid ?? ''}/pastOpp').get(),
+        future: FirebaseFirestore.instance.collection("users/${user?.uid ?? ''}/pastOpp").get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             print("entering");
+            print(snapshot.data);
             int hours = 0;
             List<PastWork> pw = [];
-
             (snapshot.data! as QuerySnapshot).docs.forEach((element) {
               dynamic data = element.data();
               print(data);

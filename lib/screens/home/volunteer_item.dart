@@ -29,6 +29,7 @@ class VolunteerItemState extends State<VolunteerItem> {
   }
   @override
   Widget build(BuildContext context) {
+    print(widget.opp.description);
     user_signed_up();
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -68,7 +69,7 @@ class VolunteerItemState extends State<VolunteerItem> {
                 ),
                 SizedBox(height: 3),
                 Text(
-                  widget.opp.description,
+                  widget.opp.description != '' ? widget.opp.description : "No description provided :(",
                   style: TextStyle(
                     fontFamily: "Geometria",
                     fontSize: 13,

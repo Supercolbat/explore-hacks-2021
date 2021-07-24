@@ -10,6 +10,7 @@ class PastWorksList extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    print(this.pwList);
     return Container(
       width: size.width * 0.85,
       height: size.height * 0.4,
@@ -20,8 +21,8 @@ class PastWorksList extends StatelessWidget {
           topRight: Radius.circular(30),
         ),
       ),
-      child: Column(
-        children: [
+      child: ListView(
+        children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.only(top: 20, left: 30),
@@ -41,9 +42,12 @@ class PastWorksList extends StatelessWidget {
             child: Column(
               children: pwList.map((pw) => PastWorkItem(pw)).toList(),
             ),
-          )
+          ),
+          
         ],
       ),
     );
   }
 }
+
+
