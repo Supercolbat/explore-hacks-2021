@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 
 class PastWorksList extends StatelessWidget {
   PastWorksList(this.pwList);
-  final List<PastWork> pwList; 
+  final List<PastWork> pwList;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    print(this.pwList);
     return Container(
       width: size.width * 0.85,
       height: size.height * 0.4,
@@ -43,11 +42,8 @@ class PastWorksList extends StatelessWidget {
               children: pwList.map((pw) => PastWorkItem(pw)).toList(),
             ),
           ),
-          
         ],
       ),
     );
   }
 }
-
-
