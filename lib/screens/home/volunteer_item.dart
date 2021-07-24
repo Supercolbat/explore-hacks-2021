@@ -3,15 +3,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-
-class VolunteerItem extends StatelessWidget {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+class VolunteerItem extends StatefulWidget {
   final Opportunity opp;
 
   VolunteerItem(this.opp);
+  VolunteerItemState createState() => VolunteerItemState();
+}
+class VolunteerItemState extends State<VolunteerItem> {
+
+  bool signed_up = false;
+  void user_signed_up() {
+    String oppid = '/opportunities/${widget.opp.doc.id}';
+    var user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw new Error();
+    }
+    String uid = user.uid;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get().then((data) => setState((){signed_up = data["upcomingOpportunities"].toList().contains(oppid);}));
+  }
   @override
   Widget build(BuildContext context) {
+    user_signed_up();
     Size size = MediaQuery.of(context).size;
-
     return Container(
       width: size.width * 0.8,
       height: 85,
@@ -40,7 +59,7 @@ class VolunteerItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  this.opp.name,
+                  widget.opp.name,
                   style: TextStyle(
                     fontFamily: "Geometria",
                     fontWeight: FontWeight.w500,
@@ -49,7 +68,7 @@ class VolunteerItem extends StatelessWidget {
                 ),
                 SizedBox(height: 3),
                 Text(
-                  this.opp.description,
+                  widget.opp.description,
                   style: TextStyle(
                     fontFamily: "Geometria",
                     fontSize: 13,
@@ -65,7 +84,7 @@ class VolunteerItem extends StatelessWidget {
                     SizedBox(width: 10),
                     Text(
                       DateFormat(DateFormat.ABBR_MONTH_DAY)
-                          .format(this.opp.date),
+                          .format(widget.opp.date),
                       style: TextStyle(
                         fontFamily: "Geometria",
                         fontWeight: FontWeight.w500,
@@ -78,12 +97,51 @@ class VolunteerItem extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 32),
-            child: SvgPicture.asset(
-              'assets/images/plus_icon.svg',
-              width: 20,
-            ),
-          ),
+              margin: EdgeInsets.only(top: 32),
+              child: InkWell(
+                onTap: () async {
+                  if (signed_up) {
+                    return;
+                  }
+                  String oppid = '/opportunities/${widget.opp.doc.id}';
+                  var user = FirebaseAuth.instance.currentUser;
+                  if (user == null) {
+                    throw new Error();
+                  }
+                  String uid = user.uid;
+                  var data = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+                  List<String> upcoming_events = data["upcomingOpportunities"];
+                  upcoming_events.add(oppid);
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(uid)
+                      .update({"upcomingOpportunities": upcoming_events});
+                   showDialog(
+                    context: context,
+                    builder: (BuildContext context) => new AlertDialog(
+                      title: const Text('Signup complete'),
+                      content: new Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("You've signed up to volunteer for ${widget.opp.name}!"),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        new TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Close'),
+                        ),
+                      ],
+                    ));
+                },
+                child: SvgPicture.asset(
+                  signed_up ? 'assets/images/green_check_icon.svg' : 'assets/images/plus_icon.svg',
+                  width: 20,
+                ),
+              )),
           //arrow goes here
         ],
       ),
