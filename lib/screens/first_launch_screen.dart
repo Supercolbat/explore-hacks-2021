@@ -1,6 +1,5 @@
 import 'package:explore_hacks_2021/widgets/wave_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:explore_hacks_2021/constants/colors.dart';
 
 class FirstLaunchScreen extends StatefulWidget {
   @override
@@ -27,21 +26,33 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
           ),
 
           /*
+           * Text
+           */
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 250),
+              child: Text(
+                "Welcome to\nApp",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Geometria",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 36,
+                ),
+              ),
+            ),
+          ),
+
+          /*
            * Logo
            */
           Positioned(
             top: size.height / 4 - 30, // 1/4th down the screen
-            child: CircleAvatar(
-                backgroundColor: ColorPalette.purple200, radius: 60),
-          ),
-          Positioned(
-            top: size.height / 4 + 15,
-            child: Text(
-              "Explore Hacks App",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-              ),
+            child: Image(
+              image: AssetImage("assets/images/logo.png"),
+              width: 120,
+              height: 120,
             ),
           ),
 
