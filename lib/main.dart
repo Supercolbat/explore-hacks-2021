@@ -1,3 +1,4 @@
+import 'package:explore_hacks_2021/screens/first_launch_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,12 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return Container(color: Colors.blue);
+          // return Container(color: Colors.blue);
+          return MaterialApp(
+            home: Scaffold(
+              body: FirstLaunchScreen(),
+            ),
+          );
         }
 
         return Container(color: Colors.green);
