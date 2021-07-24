@@ -31,7 +31,7 @@ class GoogleBtn extends StatelessWidget {
               width: 33,
             ),
             SvgPicture.asset(
-              'assets/google_logo.svg',
+              'assets/images/google_logo.svg',
               semanticsLabel: 'Logo',
               width: 27,
             ),

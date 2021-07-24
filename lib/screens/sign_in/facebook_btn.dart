@@ -27,7 +27,7 @@ class FacebookBtn extends StatelessWidget {
               width: 33,
             ),
             SvgPicture.asset(
-              'assets/facebook_logo.svg',
+              'assets/images/facebook_logo.svg',
               semanticsLabel: 'Logo',
               width: 27,
             ),
