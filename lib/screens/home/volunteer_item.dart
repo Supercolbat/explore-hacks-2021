@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class VolunteerItem extends StatelessWidget {
   final Opportunity opp;
@@ -79,10 +81,26 @@ class VolunteerItem extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: 32),
+            child: InkWell(
+            onTap: () async {
+              String oppid = '/opportunities/${this.opp.doc.id}';
+              var user = FirebaseAuth.instance.currentUser;
+              if (user == null) {
+                throw new Error();
+              }
+              String uid = user.uid;
+              var data = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+              List<dynamic> upcoming_events = data["upcomingOpportunities"];
+              upcoming_events.add(oppid);
+              FirebaseFirestore.instance.collection('users').doc(uid).update(
+                {"upcomingOpportunities": upcoming_events}
+              );
+            },
             child: SvgPicture.asset(
               'assets/images/plus_icon.svg',
               width: 20,
             ),
+          )
           ),
           //arrow goes here
         ],
