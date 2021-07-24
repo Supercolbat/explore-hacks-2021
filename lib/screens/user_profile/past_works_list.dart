@@ -9,12 +9,14 @@ class PastWorksList extends StatelessWidget {
         date: DateTime(2021),
         description: 'description',
         name: 'name',
-        organization: '123'),
+        organization: '123',
+        hours: 1),
     new PastWork(
         date: DateTime(2021),
         description: 'description',
         name: 'name',
-        organization: '123'),
+        organization: '123',
+        hours: 2),
   ];
 
   @override

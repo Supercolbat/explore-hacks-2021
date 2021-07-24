@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:explore_hacks_2021/models/past_work.dart';
 import 'package:explore_hacks_2021/screens/user_profile/past_works_list.dart';
 import 'package:explore_hacks_2021/screens/user_profile/stat_box.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +12,29 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    User? user = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection('users/${user?.uid ?? ''}/pastOpp')
+        .get()
+        .then((snapshot) {
+      int hours = 0;
+      List<PastWork> pw = [];
 
+      List<PastWork>.from(snapshot.docs).forEach((element) {});
+
+      snapshot.docs.forEach((element) {
+        dynamic data = element.data();
+
+        pw.add(PastWork(
+            date: data['date'],
+            description: data['description'],
+            hours: data['hours'],
+            name: data['name'],
+            organization: data['organization']));
+      });
+
+      print(hours);
+    });
     return Scaffold(
       body: Container(
         width: size.width,
@@ -55,7 +80,7 @@ class UserProfileScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                'username',
+                                user?.displayName ?? '',
                                 style: TextStyle(
                                   fontFamily: "Geometria",
                                   fontWeight: FontWeight.w500,
@@ -69,12 +94,12 @@ class UserProfileScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'username',
+                                    'Actively volunteering',
                                     style: TextStyle(
                                       fontFamily: "Geometria",
                                       fontWeight: FontWeight.w400,
                                       color: ColorPalette.grey150,
-                                      fontSize: 12,
+                                      fontSize: 11,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
