@@ -1,3 +1,4 @@
+import 'package:explore_hacks_2021/screens/user_profile/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_hacks_2021/screens/home/home_screen.dart';
 
@@ -10,7 +11,7 @@ class _NavState extends State<Nav> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    Text('Profile Screen'),
+    UserProfileScreen(),
   ];
 
   void _onItemTap(int index) {

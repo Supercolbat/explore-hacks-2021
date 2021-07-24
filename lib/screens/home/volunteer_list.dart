@@ -1,4 +1,4 @@
-import 'package:explore_hacks_2021/models/Opportunity.dart';
+import 'package:explore_hacks_2021/models/opportunity.dart';
 import 'package:explore_hacks_2021/screens/home/volunteer_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +14,15 @@ class VolunteerList extends StatelessWidget {
           avaiableSpots: 2,
           date: DateTime(2021),
           description: 'description',
-          name: 'name'),
+          name: 'name',
+          organization: '123'),
       new Opportunity(
           address: 'address',
           avaiableSpots: 2,
           date: DateTime(2021),
           description: 'description',
-          name: 'name'),
+          name: 'name',
+          organization: '123'),
     ];
     return Container(
       width: size.width,
@@ -46,12 +48,15 @@ class VolunteerList extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Geometria',
                 fontWeight: FontWeight.w400,
-                fontSize: 16,
+                fontSize: 17,
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 37, left: size.width * 0.11),
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(
+              top: 37,
+            ),
             child: Column(
               children: oppList.map((opp) => VolunteerItem(opp)).toList(),
             ),
