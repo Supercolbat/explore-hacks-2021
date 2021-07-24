@@ -61,8 +61,7 @@ class OppList extends StatelessWidget {
               children: oppList.map((opp) => OppItem(opp)).toList(),
             ),
           )
-        ],
-      ),
-    );
+        ]
+    ));
   }
 }
