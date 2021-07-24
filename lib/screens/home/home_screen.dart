@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -6,14 +7,21 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Container(
-      color: ColorPalette.purple50,
-      child: Column(
-        children: [
-          Text(
-            "Volunteering",
-          ),
-        ],
+    return Scaffold(
+      body: Container(
+        color: ColorPalette.purple50,
+        child: Column(
+          children: [
+            Text(
+              "Volunteering",
+              style: TextStyle(
+                fontFamily: 'Geometria',
+                fontWeight: FontWeight.w500,
+                fontSize: 30,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
