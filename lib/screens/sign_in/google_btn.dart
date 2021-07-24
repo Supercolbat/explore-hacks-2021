@@ -13,13 +13,16 @@ class GoogleBtn extends StatelessWidget {
         width: size.width * 0.7,
         height: 50,
         decoration: BoxDecoration(
-            color: purple150,
+            color: ColorPalette.purple150,
             borderRadius: BorderRadius.all(Radius.circular(15)),
             border: Border.all(
               color: Colors.transparent,
             ),
             boxShadow: [
-              BoxShadow(color: purple100, offset: Offset(0, 3), blurRadius: 5)
+              BoxShadow(
+                  color: ColorPalette.purple100,
+                  offset: Offset(0, 3),
+                  blurRadius: 5)
             ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

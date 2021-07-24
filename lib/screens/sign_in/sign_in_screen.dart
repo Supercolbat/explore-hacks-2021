@@ -28,7 +28,8 @@ class SignInScreen extends StatelessWidget {
                       height: 150,
                       margin: EdgeInsets.only(top: size.height * 0.5 - 170),
                       decoration: BoxDecoration(
-                          color: purple150, shape: BoxShape.circle),
+                          color: ColorPalette.purple150,
+                          shape: BoxShape.circle),
                     ),
                     SizedBox(height: 10),
                     Text(

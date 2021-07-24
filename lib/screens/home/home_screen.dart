@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      color: purple50,
+      color: ColorPalette.purple50,
       child: Column(
         children: [
           Text(
