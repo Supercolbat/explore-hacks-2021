@@ -1,10 +1,20 @@
+import 'package:explore_hacks_2021/auth.dart';
+import 'package:explore_hacks_2021/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:explore_hacks_2021/screens/sign_in/facebook_btn.dart';
 import 'package:explore_hacks_2021/screens/sign_in/google_btn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,13 +53,39 @@ class SignInScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.08),
-                Column(
-                  children: [
-                    GoogleBtn(),
-                    SizedBox(height: 28),
-                    FacebookBtn(),
-                  ],
-                )
+                _isLoading
+                    ? CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            ColorPalette.purple150),
+                      )
+                    : Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              setState(() {
+                                _isLoading = true;
+                              });
+
+                              User? user = await AuthService.signInWithGoogle(
+                                  context: context);
+
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              print(user);
+                              if (user != null) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => Nav()),
+                                );
+                              }
+                            },
+                            child: GoogleBtn(),
+                          ),
+                          SizedBox(height: 28),
+                          FacebookBtn(),
+                        ],
+                      )
               ],
             )
           ],
