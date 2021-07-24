@@ -23,10 +23,10 @@ class _SignInScreenState extends State<SignInScreen> {
     Future<void> addUser(User user) {
       return FirebaseFirestore.instance
           .collection('users')
-          .where('email', isEqualTo: user.email)
+          .doc(user.uid)
           .get()
           .then((snapshot) => {
-                if (snapshot.docs.length > 0 && snapshot.docs[0].exists)
+                if (snapshot.exists)
                   {
                     //  FirebaseFirestore.instance.collection('users').add({
                     //   'email': user.email,
@@ -38,7 +38,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   }
                 else
                   {
-                    FirebaseFirestore.instance.collection('users').add({
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.uid)
+                        .set({
                       'email': user.email,
                       'name': user.displayName,
                       'ownedOrganizations': [],

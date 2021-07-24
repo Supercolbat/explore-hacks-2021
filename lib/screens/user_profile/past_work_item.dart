@@ -65,7 +65,7 @@ class PastWorkItem extends StatelessWidget {
                     SizedBox(width: 10),
                     Text(
                       DateFormat(DateFormat.ABBR_MONTH_DAY)
-                          .format(this.pastWork.date),
+                          .format(this.pastWork.date) + " (${pastWork.hours} ${pastWork.hours == 1 ? 'hour' : 'hours'})",
                       style: TextStyle(
                         fontFamily: "Geometria",
                         fontWeight: FontWeight.w500,
@@ -80,7 +80,7 @@ class PastWorkItem extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 32),
             child: SvgPicture.asset(
-              'assets/images/green_check_icon.svg',
+              this.pastWork.attended ? 'assets/images/green_check_icon.svg' : 'assets/images/x_icon.svg',
               width: 20,
             ),
           ),
