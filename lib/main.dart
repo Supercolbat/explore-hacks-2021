@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:explore_hacks_2021/screens/sign_in/sign_in_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,11 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return Container(color: Colors.blue);
+          return MediaQuery(
+              data: MediaQueryData(),
+              child: MaterialApp(
+                home: SignInScreen(),
+              ));
         }
 
         return Container(color: Colors.green);
