@@ -79,10 +79,15 @@ class VolunteerItem extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: 32),
+            child: GestureDetector(
+            onTap: () {
+              print("TODO: Sign user up")
+            },
             child: SvgPicture.asset(
               'assets/images/plus_icon.svg',
               width: 20,
             ),
+          )
           ),
           //arrow goes here
         ],
