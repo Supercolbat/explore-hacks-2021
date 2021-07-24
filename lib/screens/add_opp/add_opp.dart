@@ -21,7 +21,11 @@ class addOppScreenState extends State<addOppScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           String orgname = "";
-          print(snapshot.data.?docs);
+          var orgs = (snapshot.data! as QuerySnapshot).docs;
+          List<DropdownMenuItem<String>> items = orgs.map((f) => new DropdownMenuItem(
+            child: Text(f.get("name").toString()),
+            value: f.get("name").toString()
+          )).toList();
           return Scaffold(
             body: Center(
               child: Column(
@@ -35,16 +39,8 @@ class addOppScreenState extends State<addOppScreen> {
                   Text("organization:"),
                   DropdownButton(
                     value: orgname,
-                    items: [
-                      DropdownMenuItem(
-                        child: Text("eeby"),
-                        value: "deeby"
-                      ),
-                      DropdownMenuItem(
-                        child: Text("deeby"),
-                        value: "eeby"
-                      )
-                    ]
+                    items: items,
+                    hint: Text("Organization")
                   )
                 ]
               )
