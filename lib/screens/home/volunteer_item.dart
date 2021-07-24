@@ -33,7 +33,7 @@ class VolunteerItemState extends State<VolunteerItem> {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 0.8,
-      height: 85,
+      height: 95,
       margin: EdgeInsets.only(bottom: 30),
       decoration: BoxDecoration(
         color: Colors.white,
