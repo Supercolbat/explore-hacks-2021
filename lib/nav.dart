@@ -1,3 +1,4 @@
+import 'package:explore_hacks_2021/screens/organizations/organizations_screen.dart';
 import 'package:explore_hacks_2021/screens/user_profile/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_hacks_2021/screens/home/home_screen.dart';
@@ -12,6 +13,7 @@ class _NavState extends State<Nav> {
   List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     UserProfileScreen(),
+    OrganizationsScreen()
   ];
 
   void _onItemTap(int index) {
