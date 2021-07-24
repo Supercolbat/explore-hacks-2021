@@ -2,6 +2,7 @@ import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:explore_hacks_2021/screens/organizations/orgs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 /*
@@ -32,6 +33,7 @@ class addOppScreenState extends State<addOppScreen> {
                     value: f.get("name").toString()))
                 .toList();
             Size size = MediaQuery.of(context).size;
+            DateTime final_date;
 
             return Scaffold(
               body: Container(
@@ -124,6 +126,35 @@ class addOppScreenState extends State<addOppScreen> {
                         ),
                       ),
                       SizedBox(height: 25),
+                      TextButton(
+                        child: Text("Choose a date",
+                           style: TextStyle(
+                              fontFamily: "Geometria",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.white
+                           )
+                      ),
+                      style: ButtonStyle(
+                           backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                              return ColorPalette.purple150;
+                            }),
+
+                      ),
+                      onPressed: () async {
+                      DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime.now(),
+                              onChanged: (date) {
+                            print('change $date');
+                          }, onConfirm: (date) {
+                            print('confirm $date');
+                            final_date = date;
+                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                      }
+                      ),
                       TextButton(
                           child: Text("Add Your Listing",
                               style: TextStyle(

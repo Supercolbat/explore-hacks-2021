@@ -9,20 +9,20 @@ class OppList extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     List<Opportunity> oppList = [
-      // new Opportunity(
-      //     address: 'address',
-      //     avaiableSpots: 2,
-      //     date: DateTime(2021),
-      //     description: 'description',
-      //     name: 'name',
+//       new Opportunity(
+  //         address: 'address',
+ //          avaiableSpots: 2,
+   //        date: DateTime(2021),
+    //       description: 'description',
+     //      name: 'name',
       //     organization: '123'),
-      // new Opportunity(
-      //     address: 'address',
-      //     avaiableSpots: 2,
-      //     date: DateTime(2021),
-      //     description: 'description',
-      //     name: 'name',
-      //     organization: '123'),
+       //new Opportunity(
+        //   address: 'address',
+         //  avaiableSpots: 2,
+          // date: DateTime(2021),
+           //description: 'description',
+           //name: 'name',
+            //organization: '123'),
     ];
     return Container(
       width: size.width,
