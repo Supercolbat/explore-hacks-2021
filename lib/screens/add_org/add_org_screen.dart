@@ -1,4 +1,5 @@
 import 'package:explore_hacks_2021/constants/colors.dart';
+import 'package:explore_hacks_2021/nav.dart';
 import 'package:explore_hacks_2021/screens/organizations/orgs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,11 +30,7 @@ class addOrgPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OrganizationsScreen()),
-                    );
+                    Navigator.pop(context);
                   },
                   child: SvgPicture.asset(
                     'assets/images/left-arrow.svg',
@@ -91,29 +88,30 @@ class addOrgPage extends StatelessWidget {
               ),
               SizedBox(height: 25),
               TextButton(
-                  child: Text("Add Your Organization",
-                      style: TextStyle(
-                          fontFamily: "Geometria",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: Colors.white)),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                      return ColorPalette.purple150;
-                    }),
-                  ),
-                  onPressed: () async {
-                    var firebase = FirebaseFirestore.instance;
-                    User? user = FirebaseAuth.instance.currentUser;
-                    firebase.collection('organizations').add({
-                      "name": _nc.text,
-                      "description": _dc.text,
-                      "owner": "${user?.uid ?? ''}",
-                      "opportunities": []
-                    });
-                    Navigator.pop(context);
-                  })
+                child: Text("Add Your Organization",
+                    style: TextStyle(
+                        fontFamily: "Geometria",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: Colors.white)),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                    return ColorPalette.purple150;
+                  }),
+                ),
+                onPressed: () async {
+                  var firebase = FirebaseFirestore.instance;
+                  User? user = FirebaseAuth.instance.currentUser;
+                  firebase.collection('organizations').add({
+                    "name": _nc.text,
+                    "description": _dc.text,
+                    "owner": "${user?.uid ?? ''}",
+                    "opportunities": []
+                  });
+                  Navigator.pop(context);
+                },
+              )
             ],
           ),
         ),

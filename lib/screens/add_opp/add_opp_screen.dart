@@ -46,11 +46,7 @@ class addOppScreenState extends State<addOppScreen> {
                         alignment: Alignment.centerLeft,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OrganizationsScreen()),
-                            );
+                            Navigator.pop(context);
                           },
                           child: SvgPicture.asset(
                             'assets/images/left-arrow.svg',
@@ -151,7 +147,10 @@ class addOppScreenState extends State<addOppScreen> {
               ),
             );
           }
-          return Text("Loading");
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(ColorPalette.purple150),
+          ));
         });
   }
 }
