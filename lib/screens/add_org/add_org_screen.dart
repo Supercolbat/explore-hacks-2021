@@ -30,11 +30,7 @@ class addOrgPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                   onTap: () {
-<<<<<<< HEAD
                     Navigator.pop(context);
-=======
-                     Navigator.pop(context);
->>>>>>> 6285cc09c64802975f0568451175d7ebe6bf0130
                   },
                   child: SvgPicture.asset(
                     'assets/images/left-arrow.svg',

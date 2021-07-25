@@ -49,8 +49,6 @@ class addOppScreenState extends State<addOppScreen> {
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
-<<<<<<< HEAD
-=======
                             /*
                             Navigator.push(
                               context,
@@ -58,7 +56,6 @@ class addOppScreenState extends State<addOppScreen> {
                                   builder: (context) => OrganizationsScreen()),
                             );
                             */
->>>>>>> 6285cc09c64802975f0568451175d7ebe6bf0130
                           },
                           child: SvgPicture.asset(
                             'assets/images/left-arrow.svg',
@@ -137,34 +134,31 @@ class addOppScreenState extends State<addOppScreen> {
                       ),
                       SizedBox(height: 25),
                       TextButton(
-                        child: Text("Choose a date",
-                           style: TextStyle(
-                              fontFamily: "Geometria",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                              color: Colors.white
-                           )
-                      ),
-                      style: ButtonStyle(
-                           backgroundColor:
+                          child: Text("Choose a date",
+                              style: TextStyle(
+                                  fontFamily: "Geometria",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                  color: Colors.white)),
+                          style: ButtonStyle(
+                            backgroundColor:
                                 MaterialStateProperty.resolveWith<Color>(
                                     (Set<MaterialState> states) {
                               return ColorPalette.purple150;
                             }),
-
-                      ),
-                      onPressed: () async {
-                      DatePicker.showDatePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime.now(),
-                              onChanged: (date) {
-                            print('change $date');
-                          }, onConfirm: (date) {
-                            print('confirm $date');
-                            final_date = date;
-                          }, currentTime: DateTime.now(), locale: LocaleType.en);
-                      }
-                      ),
+                          ),
+                          onPressed: () async {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime.now(), onChanged: (date) {
+                              print('change $date');
+                            }, onConfirm: (date) {
+                              print('confirm $date');
+                              final_date = date;
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.en);
+                          }),
                       TextButton(
                           child: Text("Add Your Listing",
                               style: TextStyle(
