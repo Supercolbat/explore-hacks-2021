@@ -37,15 +37,36 @@ class _LoadingScreenState extends State<LoadingScreen>
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Center(
-        child: RotationTransition(
-          turns: rotateAnimation,
-          child: Image(
-            image: AssetImage("assets/images/logo.png"),
-            width: 120,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
             height: 120,
+            width: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+            ),
           ),
-        ),
+          RotationTransition(
+            turns: rotateAnimation,
+            child: Image(
+              image: AssetImage("assets/images/logo.png"),
+              width: 120,
+              height: 120,
+            ),
+          ),
+        ],
       ),
     );
   }
