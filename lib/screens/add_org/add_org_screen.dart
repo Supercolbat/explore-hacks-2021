@@ -6,7 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class addOrgPage extends StatelessWidget {
+class addOrgPage extends StatefulWidget {
+  addOrgPageState createState() => addOrgPageState();
+}
+
+class addOrgPageState extends State<addOrgPage> {
   final _nc = TextEditingController();
   final _dc = TextEditingController();
   void dispose() {
