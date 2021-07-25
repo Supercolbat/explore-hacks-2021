@@ -36,6 +36,7 @@ class addOppScreenState extends State<addOppScreen> {
             DateTime final_date;
 
             return Scaffold(
+              resizeToAvoidBottomInset: false,
               body: Container(
                 height: size.height,
                 color: ColorPalette.purple50,

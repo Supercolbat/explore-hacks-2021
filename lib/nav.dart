@@ -31,6 +31,7 @@ class _NavState extends State<Nav> {
 
     return Scaffold(
       body: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
