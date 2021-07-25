@@ -12,7 +12,7 @@ class Nav extends StatefulWidget {
 }
 
 class _NavState extends State<Nav> {
-  int _selectedIndex = 0;
+  int pageIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     UserProfileScreen(),
@@ -21,7 +21,7 @@ class _NavState extends State<Nav> {
 
   void _onItemTap(int index) {
     setState(() {
-      _selectedIndex = index;
+      pageIndex = index;
     });
   }
 
@@ -31,47 +31,55 @@ class _NavState extends State<Nav> {
 
     return Scaffold(
       body: MaterialApp(
-        home: _widgetOptions.elementAt(_selectedIndex),
+        home: _widgetOptions.elementAt(pageIndex),
       ),
       bottomNavigationBar: Container(
         height: 50,
         width: size.width,
         margin: EdgeInsets.symmetric(horizontal: 25),
         child: GNav(
-            backgroundColor: Colors.white,
-            rippleColor: Colors.grey, // tab button ripple color when pressed
-            hoverColor: Colors.grey, // tab button hover color
-            haptic: true, // haptic feedback
-            tabBorderRadius: 20,
-            tabActiveBorder: Border.all(
-                color: ColorPalette.purple200, width: 1), // tab button border
-            tabBorder: Border.all(
-                color: Colors.transparent, width: 1), // tab button border
-            tabShadow: [], // tab button shadow
-            curve: Curves.easeOutExpo, // tab animation curves
-            duration: Duration(milliseconds: 400), // tab animation duration
-            gap: 8, // the tab button gap between icon and text
-            color: Colors.grey[800], // unselected icon color
-            activeColor: ColorPalette.purple200, // selected icon and text color
-            iconSize: 24, // tab button icon size
+          backgroundColor: Colors.white,
+          rippleColor: Colors.grey, // tab button ripple color when pressed
+          hoverColor: Colors.grey, // tab button hover color
+          haptic: true, // haptic feedback
+          tabBorderRadius: 20,
+          tabActiveBorder: Border.all(
+            color: ColorPalette.purple200,
+            width: 1,
+          ), // tab button border
+          tabBorder: Border.all(
+            color: Colors.transparent,
+            width: 1,
+          ), // tab button border
+          tabShadow: [], // tab button shadow
+          curve: Curves.easeOutExpo, // tab animation curves
+          duration: Duration(milliseconds: 400), // tab animation duration
+          gap: 8, // the tab button gap between icon and text
+          color: Colors.grey[800], // unselected icon color
+          activeColor: ColorPalette.purple200, // selected icon and text color
+          iconSize: 24, // tab button icon size
 
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            selectedIndex: _selectedIndex,
-            onTabChange: _onItemTap,
-            tabs: [
-              GButton(
-                icon: LineIcons.globe,
-                text: 'Home',
-              ),
-              GButton(
-                icon: LineIcons.user,
-                text: 'Profile',
-              ),
-              GButton(
-                icon: LineIcons.map,
-                text: 'Organizations',
-              ),
-            ]),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 5,
+          ),
+          selectedIndex: pageIndex,
+          onTabChange: _onItemTap,
+          tabs: [
+            GButton(
+              icon: LineIcons.globe,
+              text: 'Home',
+            ),
+            GButton(
+              icon: LineIcons.user,
+              text: 'Profile',
+            ),
+            GButton(
+              icon: LineIcons.map,
+              text: 'Organizations',
+            ),
+          ],
+        ),
       ),
     );
   }
