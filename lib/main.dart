@@ -30,27 +30,17 @@ class _AppState extends State<App> {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print(snapshot.error);
           return Container(
             color: Colors.red,
           );
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          // return Container(color: Colors.blue);
           return MaterialApp(
             home: Scaffold(
               body: SignInScreen(),
             ),
           );
-          /*          
-          return MaterialApp(home: Scaffold(body: SignInScreen()));
-          return MaterialApp(
-            home: Scaffold(
-              bottomNavigationBar: Nav(),
-            ),
-          );
-          */
         }
 
         // Return LoadingScreen until the snapshot successfully loads

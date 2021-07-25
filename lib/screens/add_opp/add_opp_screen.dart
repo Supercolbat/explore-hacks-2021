@@ -150,10 +150,8 @@ class addOppScreenState extends State<addOppScreen> {
                           onPressed: () async {
                             DatePicker.showDatePicker(context,
                                 showTitleActions: true,
-                                minTime: DateTime.now(), onChanged: (date) {
-                              print('change $date');
-                            }, onConfirm: (date) {
-                              print('confirm $date');
+                                minTime: DateTime.now(),
+                                onChanged: (date) {}, onConfirm: (date) {
                               final_date = date;
                             },
                                 currentTime: DateTime.now(),

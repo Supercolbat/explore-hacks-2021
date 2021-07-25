@@ -22,7 +22,6 @@ class OppList extends StatelessWidget {
               snapshot.hasData) {
             List<dynamic> data = snapshot.data as List<dynamic>;
             var oppList = [];
-            print(snapshot.data);
             (data).forEach((element) {
               oppList.add(Opportunity(
                   address: element['address'],

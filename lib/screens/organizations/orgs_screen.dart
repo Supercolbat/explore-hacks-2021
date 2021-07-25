@@ -29,7 +29,6 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
             return CircularProgressIndicator();
           }
           String user = FirebaseAuth.instance.currentUser?.uid ?? '';
-          print(snapshot.data!.runtimeType);
           QuerySnapshot orgs = (snapshot.data! as List<dynamic>).first;
           QuerySnapshot opps = (snapshot.data! as List<dynamic>).last;
           List<QueryDocumentSnapshot> orgs_list =
@@ -39,9 +38,6 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
             Iterable<DocumentReference> opps_list =
                 opps.docs.map((o) => o.get("organization"));
             var linked_opps_list = opps_list.where((o) => o.id == org.id);
-            var x = org.get('opportunities');
-            print('x');
-            print(x);
             orgList.add(new Organization(
                 owner: user,
                 description: org.get("description").toString(),
@@ -129,7 +125,6 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
                       SizedBox(height: 85),
                       Column(
                         children: orgList.asMap().entries.map((e) {
-                          print(e.value.opportunities);
                           return Container(
                             margin: EdgeInsets.only(bottom: 20),
                             child: OrganizationItem(
