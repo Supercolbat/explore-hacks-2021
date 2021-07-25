@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PastWork {
   DateTime date;
   String description;
   String name;
-  String organization;
+  DocumentReference organization;
   int hours;
   bool attended;
 
