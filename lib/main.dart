@@ -37,6 +37,7 @@ class _AppState extends State<App> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: SignInScreen(),
             ),
