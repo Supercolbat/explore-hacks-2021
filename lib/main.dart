@@ -36,20 +36,11 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          // return Container(color: Colors.blue);
           return MaterialApp(
             home: Scaffold(
               body: SignInScreen(),
             ),
           );
-          /*          
-          return MaterialApp(home: Scaffold(body: SignInScreen()));
-          return MaterialApp(
-            home: Scaffold(
-              bottomNavigationBar: Nav(),
-            ),
-          );
-          */
         }
 
         // Return LoadingScreen until the snapshot successfully loads

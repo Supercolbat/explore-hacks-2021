@@ -136,36 +136,32 @@ class AddOppScreenState extends State<AddOppScreen> {
                     ),
                     SizedBox(height: 25),
                     TextButton(
-                      child: Text(
-                        "Choose a date",
-                        style: TextStyle(
-                            fontFamily: "Geometria",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                            color: Colors.white),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          ColorPalette.purple150,
+                        child: Text("Choose a date",
+                            style: TextStyle(
+                                fontFamily: "Geometria",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.white)),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
+                            return ColorPalette.purple150;
+                          }),
                         ),
-                      ),
-                      onPressed: () async {
-                        DatePicker.showDatePicker(
-                          context,
-                          showTitleActions: true,
-                          minTime: DateTime.now(),
-                          onChanged: (date) {
-                            print('change $date');
-                          },
-                          onConfirm: (date) {
-                            print('confirm $date');
-                            finalDate = date;
-                          },
-                          currentTime: DateTime.now(),
-                          locale: LocaleType.en,
-                        );
-                      },
-                    ),
+                        onPressed: () async {
+                          DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            minTime: DateTime.now(),
+                            onChanged: (date) {},
+                            onConfirm: (date) {
+                              finalDate = date;
+                            },
+                            currentTime: DateTime.now(),
+                            locale: LocaleType.en,
+                          );
+                        }),
                     TextButton(
                       child: Text(
                         "Add Your Listing",
@@ -184,13 +180,14 @@ class AddOppScreenState extends State<AddOppScreen> {
                       onPressed: () async {
                         Navigator.pop(context);
                       },
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
           );
         }
+
         return Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(ColorPalette.purple150),

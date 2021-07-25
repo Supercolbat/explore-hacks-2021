@@ -17,12 +17,23 @@ class OrgScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddOppScreen()));
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 10, right: 20),
+        width: 37,
+        height: 37,
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddOppScreen()));
+            },
+            backgroundColor: Colors.white,
+            child: SvgPicture.asset(
+              'assets/images/filled_plus_icon.svg',
+            ),
+          ),
+        ),
       ),
       body: Container(
         width: size.width,
@@ -69,7 +80,7 @@ class OrgScreen extends StatelessWidget {
             Positioned(
               bottom: 0,
               child: OppList(this.org.opportunities),
-            )
+            ),
           ],
         ),
       ),

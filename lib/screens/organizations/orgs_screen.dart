@@ -1,178 +1,88 @@
 import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:explore_hacks_2021/models/organization.dart';
-import 'package:explore_hacks_2021/screens/organizations/org_screen.dart';
-import 'package:explore_hacks_2021/screens/organizations/orgs_item.dart';
-import 'package:explore_hacks_2021/screens/add_org/add_org_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:explore_hacks_2021/screens/add_opp/add_opp_screen.dart';
+import 'package:explore_hacks_2021/screens/organizations/opp_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class OrganizationsScreen extends StatefulWidget {
-  @override
-  _OrganizationsScreenState createState() => _OrganizationsScreenState();
-}
+class OrgScreen extends StatelessWidget {
+  final Organization org;
+  final Function goBack;
 
-class _OrganizationsScreenState extends State<OrganizationsScreen> {
-  int _pageIndex = 0;
+  OrgScreen({required this.org, required this.goBack});
 
   @override
   Widget build(BuildContext context) {
-    Iterable<Future<dynamic>> backToThe = [
-      FirebaseFirestore.instance.collection('organizations').get(),
-      FirebaseFirestore.instance.collection('opportunities').get()
-    ];
+    Size size = MediaQuery.of(context).size;
 
-    return FutureBuilder(
-      future: Future.wait(backToThe),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return CircularProgressIndicator();
-        }
-
-        String user = FirebaseAuth.instance.currentUser?.uid ?? '';
-
-        print(snapshot.data!.runtimeType);
-
-        QuerySnapshot orgs = (snapshot.data! as List<dynamic>).first;
-        QuerySnapshot opps = (snapshot.data! as List<dynamic>).last;
-
-        List<QueryDocumentSnapshot> orgsList =
-            orgs.docs.where((f) => f.get("owner") == user).toList();
-        List<Organization> orgList = [];
-
-        orgsList.forEach((org) {
-          Iterable<DocumentReference> oppsList =
-              opps.docs.map((o) => o.get("organization"));
-
-          var linkedOppsList = oppsList.where((o) => o.id == org.id);
-
-          var x = org.get('opportunities');
-          print('x');
-          print(x);
-
-          orgList.add(new Organization(
-            owner: user,
-            description: org.get("description").toString(),
-            name: org.get("name").toString(),
-            opportunities: org.get('opportunities'),
-          ));
-        });
-
-        Size size = MediaQuery.of(context).size;
-        final controller = PageController(
-          initialPage: 0,
-        );
-        List<OrgScreen> pageWidgets = orgList.asMap().entries.map((e) {
-          return OrgScreen(
-            org: e.value,
-            goBack: () {
-              controller.animateToPage(
-                0,
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeIn,
+    return Scaffold(
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 10, right: 20),
+        width: 37,
+        height: 37,
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddOppScreen()),
               );
             },
-          );
-        }).toList();
-
-        void setPageIndex(int i) {
-          setState(() {
-            _pageIndex = i;
-          });
-        }
-
-        final pageView = PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: controller,
+            backgroundColor: Colors.white,
+            child: SvgPicture.asset(
+              'assets/images/filled_plus_icon.svg',
+            ),
+          ),
+        ),
+      ),
+      body: Container(
+        width: size.width,
+        color: ColorPalette.purple50,
+        child: Stack(
           children: [
-            Scaffold(
-              floatingActionButton: Container(
-                margin: EdgeInsets.only(bottom: 10, right: 20),
-                width: 37,
-                height: 37,
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddOrgPage(),
-                        ),
-                      );
-                    },
-                    backgroundColor: Colors.white,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 25, top: 35),
+                  child: GestureDetector(
+                    onTap: () => this.goBack(),
                     child: SvgPicture.asset(
-                      'assets/images/filled_plus_icon.svg',
+                      'assets/images/left-arrow.svg',
+                      width: 50,
                     ),
                   ),
                 ),
-              ),
-              body: Container(
-                width: size.width,
-                color: ColorPalette.purple50,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: size.height * 0.08),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Your Organizations',
-                            style: TextStyle(
-                              fontFamily: "Geometria",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 25,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Container(
-                            width: size.width * 0.8,
-                            child: Text(
-                              'These are the organizations you manage! Thank you for making the world a better place',
-                              style: TextStyle(
-                                fontFamily: "Geometria",
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14,
-                                color: ColorPalette.grey150,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        ],
-                      ),
+                Container(
+                  margin: EdgeInsets.only(left: 35, top: 20),
+                  child: Text(
+                    this.org.name,
+                    style: TextStyle(
+                      fontFamily: "Geometria",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25,
                     ),
-                    SizedBox(height: 85),
-                    Column(
-                      children: orgList.asMap().entries.map((e) {
-                        print(e.value.opportunities);
-                        return Container(
-                          margin: EdgeInsets.only(bottom: 20),
-                          child: OrganizationItem(
-                            org: e.value,
-                            onPress: () {
-                              setPageIndex(e.key);
-                              controller.animateToPage(
-                                1,
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeIn,
-                              );
-                            },
-                          ),
-                        );
-                      }).toList(),
-                    )
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  margin: EdgeInsets.only(left: 35, top: 15),
+                  child: Text(
+                    this.org.description,
+                    style: TextStyle(
+                      fontFamily: "Geometria",
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            pageWidgets[_pageIndex]
+            Positioned(bottom: 0, child: OppList(this.org.opportunities)),
           ],
-        );
-
-        return pageView;
-      },
+        ),
+      ),
     );
   }
 }

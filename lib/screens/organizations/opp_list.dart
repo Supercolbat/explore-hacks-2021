@@ -15,17 +15,13 @@ class OppList extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return FutureBuilder(
-      future: Future.wait(
-        this.oppList.map((e) => e.get().then(((d) => d.data()))),
-      ),
+      future:
+          Future.wait(this.oppList.map((e) => e.get().then(((d) => d.data())))),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           List<dynamic> data = snapshot.data as List<dynamic>;
           var oppList = [];
-
-          print(snapshot.data);
-
           (data).forEach(
             (element) {
               oppList.add(
