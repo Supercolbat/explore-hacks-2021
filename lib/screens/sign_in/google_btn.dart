@@ -9,21 +9,24 @@ class GoogleBtn extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Material(
+      borderRadius: BorderRadius.circular(15),
       child: Container(
         width: size.width * 0.7,
         height: 50,
         decoration: BoxDecoration(
-            color: ColorPalette.purple150,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            border: Border.all(
-              color: Colors.transparent,
-            ),
-            boxShadow: [
-              BoxShadow(
-                  color: ColorPalette.purple100,
-                  offset: Offset(0, 3),
-                  blurRadius: 5)
-            ]),
+          color: ColorPalette.purple150,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+            color: Colors.transparent,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              offset: Offset(0, 3),
+              blurRadius: 5,
+            )
+          ],
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -32,7 +35,7 @@ class GoogleBtn extends StatelessWidget {
             ),
             SvgPicture.asset(
               'assets/images/google_logo.svg',
-              semanticsLabel: 'Logo',
+              semanticsLabel: 'Google Logo',
               width: 27,
             ),
             SizedBox(
@@ -40,9 +43,11 @@ class GoogleBtn extends StatelessWidget {
             ),
             Text(
               'Continue with Google',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-            )
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),

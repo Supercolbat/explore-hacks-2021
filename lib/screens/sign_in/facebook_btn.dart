@@ -8,16 +8,20 @@ class FacebookBtn extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Material(
+      borderRadius: BorderRadius.circular(15),
       child: Container(
         width: size.width * 0.7,
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          border: Border.all(
-            color: Colors.black54,
-          ),
-          boxShadow: [],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              offset: Offset(0, 3),
+              blurRadius: 5,
+            ),
+          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -27,7 +31,7 @@ class FacebookBtn extends StatelessWidget {
             ),
             SvgPicture.asset(
               'assets/images/facebook_logo.svg',
-              semanticsLabel: 'Logo',
+              semanticsLabel: 'Facebook Logo',
               width: 27,
             ),
             SizedBox(
@@ -35,9 +39,11 @@ class FacebookBtn extends StatelessWidget {
             ),
             Text(
               'Continue with Facebook',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-            )
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),
