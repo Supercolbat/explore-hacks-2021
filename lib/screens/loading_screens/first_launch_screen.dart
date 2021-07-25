@@ -1,4 +1,5 @@
 import 'package:explore_hacks_2021/widgets/wave_widget.dart';
+import 'package:explore_hacks_2021/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class FirstLaunchScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
             child: Padding(
               padding: EdgeInsets.only(top: 250),
               child: Text(
-                "Welcome to\nApp",
+                "Welcome to\nOpenVolunteer",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -87,10 +88,10 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
                   ),
                 ),
                 onPressed: () {
-                  /*(Navigator.pushReplacement(
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => ),
-                  );*/
+                    MaterialPageRoute(builder: (context) => SignInScreen()),
+                  );
                 },
                 child: Text(
                   "Start",
