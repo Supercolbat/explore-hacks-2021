@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as Math;
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -13,8 +12,7 @@ class _LoadingScreenState extends State<LoadingScreen>
 
   @override
   void initState() {
-    super.initState();
-
+    // Animations
     animationController = AnimationController(
       duration: const Duration(milliseconds: 2500),
       vsync: this,
@@ -25,12 +23,13 @@ class _LoadingScreenState extends State<LoadingScreen>
     );
 
     animationController.repeat();
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -61,7 +60,7 @@ class _LoadingScreenState extends State<LoadingScreen>
           RotationTransition(
             turns: rotateAnimation,
             child: Image(
-              image: AssetImage("assets/images/logo.png"),
+              image: AssetImage("assets/images/logo.jpg"),
               width: 120,
               height: 120,
             ),

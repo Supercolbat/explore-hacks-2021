@@ -23,8 +23,6 @@ class _WaveWidgetState extends State<WaveWidget> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    super.initState();
-
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 20000),
@@ -50,12 +48,13 @@ class _WaveWidgetState extends State<WaveWidget> with TickerProviderStateMixin {
       });
 
     animationController.repeat();
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     animationController.dispose();
+    super.dispose();
   }
 
   @override

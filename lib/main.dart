@@ -1,10 +1,8 @@
-import 'package:explore_hacks_2021/screens/loading_screens/first_launch_screen.dart';
-import 'package:explore_hacks_2021/screens/loading_screens/loading_screen.dart';
+import 'package:explore_hacks_2021/screens/loading_screen/loading_screen.dart';
 import 'package:explore_hacks_2021/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_hacks_2021/nav.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,18 +24,6 @@ class AuthWrapper extends StatelessWidget {
 class _AppState extends State<App> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  Future<bool> isFirstLaunch() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    var firstLaunch = prefs.getBool("first_launch");
-    if (firstLaunch != null && !firstLaunch) {
-      prefs.setBool("first_launch", true);
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -52,13 +38,11 @@ class _AppState extends State<App> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           // return Container(color: Colors.blue);
-          isFirstLaunch().then((value) {
-            return MaterialApp(
-              home: Scaffold(
-                body: value ? FirstLaunchScreen() : SignInScreen(),
-              ),
-            );
-          });
+          return MaterialApp(
+            home: Scaffold(
+              body: SignInScreen(),
+            ),
+          );
           /*          
           return MaterialApp(home: Scaffold(body: SignInScreen()));
           return MaterialApp(
@@ -69,6 +53,7 @@ class _AppState extends State<App> {
           */
         }
 
+        // Return LoadingScreen until the snapshot successfully loads
         return LoadingScreen();
       },
     );
