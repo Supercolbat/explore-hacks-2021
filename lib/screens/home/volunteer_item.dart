@@ -123,7 +123,7 @@ class VolunteerItemState extends State<VolunteerItem> {
                         .collection("users")
                         .doc(uid)
                         .get();
-                    List<String> upcoming_events =
+                    List<dynamic> upcoming_events =
                         data["upcomingOpportunities"];
                     upcoming_events.add(oppid);
                     FirebaseFirestore.instance
