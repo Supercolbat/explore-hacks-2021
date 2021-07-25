@@ -65,7 +65,7 @@ class OrgScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Positioned(bottom: 0, child: OppList())
+              Positioned(bottom: 0, child: OppList(this.org.opportunities))
             ],
           )),
     );

@@ -18,7 +18,10 @@ class _OrganizationsScreenState extends State<OrganizationsScreen> {
 
   @override
   Widget build(BuildContext context) {
-Iterable<Future<dynamic>> back_to_the = [FirebaseFirestore.instance.collection('organizations').get(), FirebaseFirestore.instance.collection('opportunities').get()];
+    Iterable<Future<dynamic>> back_to_the = [
+      FirebaseFirestore.instance.collection('organizations').get(),
+      FirebaseFirestore.instance.collection('opportunities').get()
+    ];
     return FutureBuilder(
         future: Future.wait(back_to_the),
         builder: (context, snapshot) {
@@ -29,17 +32,21 @@ Iterable<Future<dynamic>> back_to_the = [FirebaseFirestore.instance.collection('
           print(snapshot.data!.runtimeType);
           QuerySnapshot orgs = (snapshot.data! as List<dynamic>).first;
           QuerySnapshot opps = (snapshot.data! as List<dynamic>).last;
-          List<QueryDocumentSnapshot> orgs_list = orgs.docs.where((f) => f.get("owner") == user).toList();
-          List<Organization> orgList = []; 
+          List<QueryDocumentSnapshot> orgs_list =
+              orgs.docs.where((f) => f.get("owner") == user).toList();
+          List<Organization> orgList = [];
           orgs_list.forEach((org) {
-            Iterable<DocumentReference> opps_list = opps.docs.map((o) => o.get("organization"));
+            Iterable<DocumentReference> opps_list =
+                opps.docs.map((o) => o.get("organization"));
             var linked_opps_list = opps_list.where((o) => o.id == org.id);
+            var x = org.get('opportunities');
+            print('x');
+            print(x);
             orgList.add(new Organization(
-              owner: user,
-              description: org.get("description").toString(),
-              name: org.get("name").toString(),
-              opportunities: linked_opps_list.toList()
-            ));
+                owner: user,
+                description: org.get("description").toString(),
+                name: org.get("name").toString(),
+                opportunities: org.get('opportunities')));
           });
           Size size = MediaQuery.of(context).size;
           final controller = PageController(

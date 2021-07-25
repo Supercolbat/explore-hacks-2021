@@ -16,7 +16,7 @@ class VolunteerItem extends StatefulWidget {
 class VolunteerItemState extends State<VolunteerItem> {
   bool signed_up = false;
   void user_signed_up() {
-    String oppid = '/opportunities/${widget.opp.doc.id}';
+    String oppid = '/opportunities/${widget.opp.id}';
     var user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       throw new Error();
@@ -111,7 +111,7 @@ class VolunteerItemState extends State<VolunteerItem> {
                   if (signed_up) {
                     return;
                   }
-                  String oppid = '/opportunities/${widget.opp.doc.id}';
+                  String oppid = '/opportunities/${widget.opp.id}';
                   var user = FirebaseAuth.instance.currentUser;
                   if (user == null) {
                     throw new Error();

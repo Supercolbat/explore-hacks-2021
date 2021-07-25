@@ -13,8 +13,6 @@ class OppItem extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width * 0.8,
-      height: 85,
       margin: EdgeInsets.only(bottom: 30),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -23,69 +21,76 @@ class OppItem extends StatelessWidget {
         ],
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.only(left: 20, top: 13),
-            child: SvgPicture.asset(
-              'assets/images/loc_marker.svg',
-              width: 20,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+            minHeight: 80,
+            maxHeight: 100,
+            minWidth: size.width * 0.8,
+            maxWidth: size.width * 0.8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 20, top: 13),
+              child: SvgPicture.asset(
+                'assets/images/loc_marker.svg',
+                width: 20,
+              ),
             ),
-          ),
-          Container(
-            width: 200,
-            margin: EdgeInsets.only(left: 20, top: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  this.opp.name,
-                  style: TextStyle(
-                    fontFamily: "Geometria",
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                ),
-                SizedBox(height: 3),
-                Text(
-                  this.opp.description,
-                  style: TextStyle(
-                    fontFamily: "Geometria",
-                    fontSize: 13,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/images/calendar.svg',
-                      width: 15,
+            Container(
+              width: 200,
+              margin: EdgeInsets.only(left: 20, top: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    this.opp.name,
+                    style: TextStyle(
+                      fontFamily: "Geometria",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      DateFormat(DateFormat.ABBR_MONTH_DAY)
-                          .format(this.opp.date),
-                      style: TextStyle(
-                        fontFamily: "Geometria",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
+                  ),
+                  SizedBox(height: 3),
+                  Text(
+                    this.opp.description,
+                    style: TextStyle(
+                      fontFamily: "Geometria",
+                      fontSize: 13,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/calendar.svg',
+                        width: 15,
                       ),
-                    )
-                  ],
-                )
-              ],
+                      SizedBox(width: 10),
+                      Text(
+                        DateFormat(DateFormat.ABBR_MONTH_DAY)
+                            .format(this.opp.date),
+                        style: TextStyle(
+                          fontFamily: "Geometria",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 32),
-            child: SvgPicture.asset(
-              'assets/images/plus_icon.svg',
-              width: 20,
+            Container(
+              margin: EdgeInsets.only(top: 32),
+              child: SvgPicture.asset(
+                'assets/images/minus_icon.svg',
+                width: 20,
+              ),
             ),
-          ),
-          //arrow goes here
-        ],
+            //arrow goes here
+          ],
+        ),
       ),
     );
   }

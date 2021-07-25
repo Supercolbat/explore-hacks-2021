@@ -1,3 +1,4 @@
+import 'package:explore_hacks_2021/constants/colors.dart';
 import 'package:explore_hacks_2021/models/opportunity.dart';
 import 'package:explore_hacks_2021/screens/home/volunteer_item.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,18 +20,19 @@ class VolunteerListState extends State<VolunteerList> {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             Size size = MediaQuery.of(context).size;
-               
-            List<Opportunity> oppList = (snapshot.data! as QuerySnapshot).docs.map((QueryDocumentSnapshot d) => new Opportunity(
-               doc: d.reference,
-               address: d.get("address").toString(),
-               name: d.get("name").toString(),
-               avaiableSpots: int.parse(d.get("availableSpots").toString()),
-               description: d.get("description").toString(),
-               organization: d.get("organization").toString(),
-               date: d.get("date").toDate(),
 
-            )
-            ).toList();
+            List<Opportunity> oppList = (snapshot.data! as QuerySnapshot)
+                .docs
+                .map((QueryDocumentSnapshot d) => new Opportunity(
+                      id: d.id,
+                      address: d.get("address").toString(),
+                      name: d.get("name").toString(),
+                      availableSpots:
+                          int.parse(d.get("availableSpots").toString()),
+                      description: d.get("description").toString(),
+                      date: d.get("date").toDate(),
+                    ))
+                .toList();
             /*
               new Opportunity(
                   address: '1600 Pennsylvania Ave NW, Washington, DC',
@@ -98,9 +100,10 @@ class VolunteerListState extends State<VolunteerList> {
               ),
             );
           }
-          return CircularProgressIndicator();
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(ColorPalette.purple150),
+          ));
         });
   }
 }
-
-

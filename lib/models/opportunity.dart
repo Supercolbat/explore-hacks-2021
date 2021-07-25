@@ -1,20 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Opportunity {
+  String id;
   String address;
-  int avaiableSpots;
+  int availableSpots;
   DateTime date;
   String description;
   String name;
-  String organization;
-  DocumentReference doc;
 
-  Opportunity(
-      {required this.address,
-      required this.avaiableSpots,
-      required this.date,
-      required this.description,
-      required this.name,
-      required this.organization,
-      required this.doc});
+  Opportunity({
+    required this.id,
+    required this.address,
+    required this.availableSpots,
+    required this.date,
+    required this.description,
+    required this.name,
+  });
 }
