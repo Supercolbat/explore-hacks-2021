@@ -15,24 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String tagQuery = '';
   List<Opportunity> oppListState = [];
-  final AsyncMemoizer _memoizer = AsyncMemoizer();
-
-  _fetchData() {
-    return _memoizer.runOnce(() async {
-      var snapshot =
-          await FirebaseFirestore.instance.collection('opportunities').get();
-      return snapshot.docs
-          .map((QueryDocumentSnapshot d) => new Opportunity(
-                id: d.id,
-                address: d.get("address").toString(),
-                name: d.get("name").toString(),
-                availableSpots: int.parse(d.get("availableSpots").toString()),
-                description: d.get("description").toString(),
-                date: d.get("date").toDate(),
-              ))
-          .toList();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
