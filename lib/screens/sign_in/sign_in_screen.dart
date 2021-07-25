@@ -46,7 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       'name': user.displayName,
                       'ownedOrganizations': [],
                       'typePreference': '',
-                      'upcomingOpportunities': []
+                      'upcomingOpportunities': [],
                     })
                   }
               });
@@ -60,71 +60,81 @@ class _SignInScreenState extends State<SignInScreen> {
           children: [
             WaveWidget(
               size: size,
-              yOffset: size.height / 1.75,
+              yOffset: size.height / 1.6,
               gradientColors: [
                 Color(0xFF5E1689),
                 Color(0xFFCC78FF),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // logo
-                Container(
-                  child: Image(
-                    image: AssetImage("assets/images/logo.png"),
-                    width: 175,
-                    height: 175,
+            Positioned(
+              top: size.height / 4 - 87.5,
+              child: Column(
+                children: [
+                  Container(
+                    child: Image(
+                      image: AssetImage("assets/images/logo.png"),
+                      width: 175,
+                      height: 175,
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'OpenVolunteer',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                    fontSize: 30,
+                  SizedBox(height: 10),
+                  Text(
+                    'Outreach',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                      fontSize: 30,
+                    ),
                   ),
-                ),
-                SizedBox(height: size.height * 0.08),
-                _isLoading
-                    ? CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            ColorPalette.purple150),
-                      )
-                    : Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              setState(() {
-                                _isLoading = true;
-                              });
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: size.height / 8 - 45,
+              child: Column(
+                children: [
+                  // logo
 
-                              User? user = await AuthService.signInWithGoogle(
-                                  context: context);
+                  SizedBox(height: size.height * 0.08),
+                  _isLoading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              ColorPalette.purple150),
+                        )
+                      : Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  _isLoading = true;
+                                });
 
-                              setState(() {
-                                _isLoading = false;
-                              });
+                                User? user = await AuthService.signInWithGoogle(
+                                    context: context);
 
-                              if (user != null) {
-                                await addUser(user);
+                                setState(() {
+                                  _isLoading = false;
+                                });
 
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => Nav()),
-                                );
-                              }
-                            },
-                            child: GoogleBtn(),
-                          ),
-                          SizedBox(height: 28),
-                          FacebookBtn(),
-                        ],
-                      )
-              ],
-            )
+                                if (user != null) {
+                                  await addUser(user);
+
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => Nav()),
+                                  );
+                                }
+                              },
+                              child: GoogleBtn(),
+                            ),
+                            SizedBox(height: 28),
+                            FacebookBtn(),
+                          ],
+                        ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
