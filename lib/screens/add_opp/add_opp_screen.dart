@@ -132,6 +132,29 @@ class addOppScreenState extends State<addOppScreen> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 40),
+                      Text(
+                        "Tag:",
+                        style: TextStyle(
+                          fontFamily: "Geometria",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'animals',
+                          labelStyle: TextStyle(
+                            color: Color(0xFF6200EE),
+                          ),
+                          suffixIcon: Icon(
+                            Icons.check_circle,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF6200EE)),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 25),
                       TextButton(
                           child: Text("Choose a date",
