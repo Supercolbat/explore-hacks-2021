@@ -86,23 +86,40 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               alignment: Alignment.bottomCenter,
               child: FutureBuilder(
-                future: FirebaseFirestore.instance
-                    .collection('opportunities')
-                    .where('type', isEqualTo: tagQuery)
-                    .get()
-                    .then((snapshot) {
-                  return snapshot.docs
-                      .map((QueryDocumentSnapshot d) => new Opportunity(
-                            id: d.id,
-                            address: d.get("address").toString(),
-                            name: d.get("name").toString(),
-                            availableSpots:
-                                int.parse(d.get("availableSpots").toString()),
-                            description: d.get("description").toString(),
-                            date: d.get("date").toDate(),
-                          ))
-                      .toList();
-                }),
+                future: tagQuery != ''
+                    ? FirebaseFirestore.instance
+                        .collection('opportunities')
+                        .where('type', isEqualTo: tagQuery)
+                        .get()
+                        .then((snapshot) {
+                        return snapshot.docs
+                            .map((QueryDocumentSnapshot d) => new Opportunity(
+                                  id: d.id,
+                                  address: d.get("address").toString(),
+                                  name: d.get("name").toString(),
+                                  availableSpots: int.parse(
+                                      d.get("availableSpots").toString()),
+                                  description: d.get("description").toString(),
+                                  date: d.get("date").toDate(),
+                                ))
+                            .toList();
+                      })
+                    : FirebaseFirestore.instance
+                        .collection('opportunities')
+                        .get()
+                        .then((snapshot) {
+                        return snapshot.docs
+                            .map((QueryDocumentSnapshot d) => new Opportunity(
+                                  id: d.id,
+                                  address: d.get("address").toString(),
+                                  name: d.get("name").toString(),
+                                  availableSpots: int.parse(
+                                      d.get("availableSpots").toString()),
+                                  description: d.get("description").toString(),
+                                  date: d.get("date").toDate(),
+                                ))
+                            .toList();
+                      }),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.hasData) {
