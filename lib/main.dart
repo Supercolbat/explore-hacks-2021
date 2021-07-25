@@ -1,3 +1,4 @@
+import 'package:explore_hacks_2021/screens/loading_screen/error_screen.dart';
 import 'package:explore_hacks_2021/screens/loading_screen/loading_screen.dart';
 import 'package:explore_hacks_2021/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,9 +32,7 @@ class _AppState extends State<App> {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
-          return Container(
-            color: Colors.red,
-          );
+          return ErrorScreen();
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
