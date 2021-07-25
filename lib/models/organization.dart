@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Organization {
   String name;
   String description;
@@ -9,9 +7,10 @@ class Organization {
   //List<String> opportunities;
   String owner;
 
-  Organization(
-      {required this.name,
-      required this.description,
-      required this.opportunities,
-      required this.owner});
+  Organization({
+    required this.name,
+    required this.description,
+    required this.opportunities,
+    required this.owner,
+  });
 }

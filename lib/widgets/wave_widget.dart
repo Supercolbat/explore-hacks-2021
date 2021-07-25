@@ -8,10 +8,11 @@ class WaveWidget extends StatefulWidget {
   final double yOffset;
   final List<Color> gradientColors;
 
-  WaveWidget(
-      {required this.size,
-      required this.yOffset,
-      required this.gradientColors});
+  WaveWidget({
+    required this.size,
+    required this.yOffset,
+    required this.gradientColors,
+  });
 
   @override
   _WaveWidgetState createState() => _WaveWidgetState();

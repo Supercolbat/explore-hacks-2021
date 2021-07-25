@@ -15,25 +15,25 @@ class VolunteerListState extends State<VolunteerList> {
   Widget build(BuildContext context) {
     var opp = FirebaseFirestore.instance.collection('opportunities');
     return FutureBuilder(
-        future: opp.get(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            Size size = MediaQuery.of(context).size;
+      future: opp.get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          Size size = MediaQuery.of(context).size;
 
-            List<Opportunity> oppList = (snapshot.data! as QuerySnapshot)
-                .docs
-                .map((QueryDocumentSnapshot d) => new Opportunity(
-                      id: d.id,
-                      address: d.get("address").toString(),
-                      name: d.get("name").toString(),
-                      availableSpots:
-                          int.parse(d.get("availableSpots").toString()),
-                      description: d.get("description").toString(),
-                      date: d.get("date").toDate(),
-                    ))
-                .toList();
-            /*
+          List<Opportunity> oppList = (snapshot.data! as QuerySnapshot)
+              .docs
+              .map((QueryDocumentSnapshot d) => new Opportunity(
+                    id: d.id,
+                    address: d.get("address").toString(),
+                    name: d.get("name").toString(),
+                    availableSpots:
+                        int.parse(d.get("availableSpots").toString()),
+                    description: d.get("description").toString(),
+                    date: d.get("date").toDate(),
+                  ))
+              .toList();
+          /*
               new Opportunity(
                   address: '1600 Pennsylvania Ave NW, Washington, DC',
                   avaiableSpots: 25,
@@ -56,54 +56,60 @@ class VolunteerListState extends State<VolunteerList> {
                   name: 'Clean up the beach',
                   organization: '123')
             ];*/
-            return Container(
-              width: size.width,
-              height: size.height * 0.68,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color(0xFFF9E0FF),
-                      offset: Offset(0, 0),
-                      blurRadius: 10)
-                ],
+
+          return Container(
+            width: size.width,
+            height: size.height * 0.68,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 37, left: size.width * 0.11),
-                    child: Text(
-                      "Opportunities near you",
-                      style: TextStyle(
-                        fontFamily: 'Geometria',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 17,
-                      ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFFF9E0FF),
+                  offset: Offset(0, 0),
+                  blurRadius: 10,
+                )
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                    top: 37,
+                    left: size.width * 0.11,
+                  ),
+                  child: Text(
+                    "Opportunities near you",
+                    style: TextStyle(
+                      fontFamily: 'Geometria',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 17,
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(
-                      top: 37,
-                    ),
-                    child: Column(
-                      children:
-                          oppList.map((opp) => VolunteerItem(opp)).toList(),
-                    ),
-                  )
-                ],
-              ),
-            );
-          }
-          return Center(
-              child: CircularProgressIndicator(
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(
+                    top: 37,
+                  ),
+                  child: Column(
+                    children: oppList.map((opp) => VolunteerItem(opp)).toList(),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(ColorPalette.purple150),
-          ));
-        });
+          ),
+        );
+      },
+    );
   }
 }

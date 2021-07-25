@@ -28,9 +28,10 @@ class PastWorksList extends StatelessWidget {
             child: Text(
               'Past Work',
               style: TextStyle(
-                  fontFamily: "Geometria",
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17),
+                fontFamily: "Geometria",
+                fontWeight: FontWeight.w400,
+                fontSize: 17,
+              ),
             ),
           ),
           Container(

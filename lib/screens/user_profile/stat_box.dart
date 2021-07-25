@@ -10,14 +10,15 @@ class StatBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Container(
       width: 145,
       height: 75,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: ColorPalette.purple150, width: 1.5),
+        border: Border.all(
+          color: ColorPalette.purple150,
+          width: 1.5,
+        ),
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(

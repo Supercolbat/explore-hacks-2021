@@ -24,7 +24,7 @@ class GoogleBtn extends StatelessWidget {
               color: Colors.black.withOpacity(0.25),
               offset: Offset(0, 3),
               blurRadius: 5,
-            )
+            ),
           ],
         ),
         child: Row(

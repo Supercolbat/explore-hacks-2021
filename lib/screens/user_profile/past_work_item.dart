@@ -8,6 +8,7 @@ class PastWorkItem extends StatelessWidget {
   final PastWork pastWork;
 
   PastWorkItem(this.pastWork);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -19,7 +20,10 @@ class PastWorkItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.25), blurRadius: 5)
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 5,
+          )
         ],
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
@@ -65,13 +69,14 @@ class PastWorkItem extends StatelessWidget {
                     SizedBox(width: 10),
                     Text(
                       DateFormat(DateFormat.ABBR_MONTH_DAY)
-                          .format(this.pastWork.date) + " (${pastWork.hours} ${pastWork.hours == 1 ? 'hour' : 'hours'})",
+                              .format(this.pastWork.date) +
+                          " (${pastWork.hours} ${pastWork.hours == 1 ? 'hour' : 'hours'})",
                       style: TextStyle(
                         fontFamily: "Geometria",
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
-                    )
+                    ),
                   ],
                 )
               ],
@@ -80,7 +85,9 @@ class PastWorkItem extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 32),
             child: SvgPicture.asset(
-              this.pastWork.attended ? 'assets/images/green_check_icon.svg' : 'assets/images/x_icon.svg',
+              this.pastWork.attended
+                  ? 'assets/images/green_check_icon.svg'
+                  : 'assets/images/x_icon.svg',
               width: 20,
             ),
           ),

@@ -18,56 +18,61 @@ class OrgScreen extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => addOppScreen()));
-          },
-          child: Icon(Icons.add)),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddOppScreen()));
+        },
+        child: Icon(Icons.add),
+      ),
       body: Container(
-          width: size.width,
-          color: ColorPalette.purple50,
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 25, top: 35),
-                    child: GestureDetector(
-                      onTap: () => this.goBack(),
-                      child: SvgPicture.asset(
-                        'assets/images/left-arrow.svg',
-                        width: 50,
-                      ),
+        width: size.width,
+        color: ColorPalette.purple50,
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 25, top: 35),
+                  child: GestureDetector(
+                    onTap: () => this.goBack(),
+                    child: SvgPicture.asset(
+                      'assets/images/left-arrow.svg',
+                      width: 50,
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 35, top: 20),
-                    child: Text(
-                      this.org.name,
-                      style: TextStyle(
-                        fontFamily: "Geometria",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 25,
-                      ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 35, top: 20),
+                  child: Text(
+                    this.org.name,
+                    style: TextStyle(
+                      fontFamily: "Geometria",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25,
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 35, top: 15),
-                    child: Text(
-                      this.org.description,
-                      style: TextStyle(
-                        fontFamily: "Geometria",
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                      ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 35, top: 15),
+                  child: Text(
+                    this.org.description,
+                    style: TextStyle(
+                      fontFamily: "Geometria",
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
                     ),
                   ),
-                ],
-              ),
-              Positioned(bottom: 0, child: OppList(this.org.opportunities))
-            ],
-          )),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              child: OppList(this.org.opportunities),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

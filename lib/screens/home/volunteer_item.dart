@@ -14,13 +14,16 @@ class VolunteerItem extends StatefulWidget {
 }
 
 class VolunteerItemState extends State<VolunteerItem> {
-  bool signed_up = false;
-  void user_signed_up() {
+  bool signedUp = false;
+
+  void userSignedUp() {
     String oppid = '/opportunities/${widget.opp.id}';
     var user = FirebaseAuth.instance.currentUser;
+
     if (user == null) {
       throw new Error();
     }
+
     String uid = user.uid;
 
     FirebaseFirestore.instance
@@ -28,15 +31,16 @@ class VolunteerItemState extends State<VolunteerItem> {
         .doc(uid)
         .get()
         .then((data) => setState(() {
-              signed_up =
-                  data["upcomingOpportunities"].toList().contains(oppid);
+              signedUp = data["upcomingOpportunities"].toList().contains(oppid);
             }));
   }
 
   @override
   Widget build(BuildContext context) {
-    user_signed_up();
+    userSignedUp();
+
     Size size = MediaQuery.of(context).size;
+
     return Container(
       width: size.width * 0.8,
       height: 95,
@@ -105,57 +109,64 @@ class VolunteerItemState extends State<VolunteerItem> {
             ),
           ),
           Container(
-              margin: EdgeInsets.only(top: 32),
-              child: InkWell(
-                onTap: () async {
-                  if (signed_up) {
-                    return;
-                  }
-                  String oppid = '/opportunities/${widget.opp.id}';
-                  var user = FirebaseAuth.instance.currentUser;
-                  if (user == null) {
-                    throw new Error();
-                  }
-                  String uid = user.uid;
-                  var data = await FirebaseFirestore.instance
-                      .collection("users")
-                      .doc(uid)
-                      .get();
-                  List<String> upcoming_events = data["upcomingOpportunities"];
-                  upcoming_events.add(oppid);
-                  FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(uid)
-                      .update({"upcomingOpportunities": upcoming_events});
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => new AlertDialog(
-                            title: const Text('Signup complete'),
-                            content: new Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                    "You've signed up to volunteer for ${widget.opp.name}!"),
-                              ],
-                            ),
-                            actions: <Widget>[
-                              new TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Close'),
-                              ),
-                            ],
-                          ));
-                },
-                child: SvgPicture.asset(
-                  signed_up
-                      ? 'assets/images/green_check_icon.svg'
-                      : 'assets/images/plus_icon.svg',
-                  width: 20,
-                ),
-              )),
+            margin: EdgeInsets.only(top: 32),
+            child: InkWell(
+              onTap: () async {
+                if (signedUp) {
+                  return;
+                }
+
+                String oppid = '/opportunities/${widget.opp.id}';
+                var user = FirebaseAuth.instance.currentUser;
+
+                if (user == null) {
+                  throw new Error();
+                }
+
+                String uid = user.uid;
+                var data = await FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(uid)
+                    .get();
+                List<String> upcomingEvents = data["upcomingOpportunities"];
+                upcomingEvents.add(oppid);
+
+                FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(uid)
+                    .update({"upcomingOpportunities": upcomingEvents});
+
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => new AlertDialog(
+                    title: const Text('Signup complete'),
+                    content: new Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                            "You've signed up to volunteer for ${widget.opp.name}!"),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      new TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Close'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: SvgPicture.asset(
+                signedUp
+                    ? 'assets/images/green_check_icon.svg'
+                    : 'assets/images/plus_icon.svg',
+                width: 20,
+              ),
+            ),
+          ),
           //arrow goes here
         ],
       ),

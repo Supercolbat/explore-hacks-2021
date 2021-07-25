@@ -1,14 +1,14 @@
 import 'package:explore_hacks_2021/constants/colors.dart';
-import 'package:explore_hacks_2021/nav.dart';
 import 'package:explore_hacks_2021/screens/organizations/orgs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class addOrgPage extends StatelessWidget {
+class AddOrgPage extends StatelessWidget {
   final _nc = TextEditingController();
   final _dc = TextEditingController();
+
   void dispose() {
     _nc.dispose();
     _dc.dispose();
@@ -95,10 +95,9 @@ class addOrgPage extends StatelessWidget {
                         fontSize: 15,
                         color: Colors.white)),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                    return ColorPalette.purple150;
-                  }),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    ColorPalette.purple150,
+                  ),
                 ),
                 onPressed: () async {
                   var firebase = FirebaseFirestore.instance;

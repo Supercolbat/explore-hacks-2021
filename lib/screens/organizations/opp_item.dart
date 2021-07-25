@@ -8,6 +8,7 @@ class OppItem extends StatelessWidget {
   final Opportunity opp;
 
   OppItem(this.opp);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

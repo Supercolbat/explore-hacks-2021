@@ -12,7 +12,7 @@ class _LoadingScreenState extends State<LoadingScreen>
 
   @override
   void initState() {
-    // Animations
+    // Initialize the animation
     animationController = AnimationController(
       duration: const Duration(milliseconds: 2500),
       vsync: this,
@@ -22,7 +22,9 @@ class _LoadingScreenState extends State<LoadingScreen>
       curve: Curves.elasticInOut,
     );
 
+    // Start the animation
     animationController.repeat();
+
     super.initState();
   }
 

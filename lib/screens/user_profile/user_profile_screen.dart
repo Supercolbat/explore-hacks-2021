@@ -13,6 +13,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     User? user = FirebaseAuth.instance.currentUser;
+
     return FutureBuilder(
         future: FirebaseFirestore.instance
             .collection("users/${user?.uid ?? ''}/pastOpp")
@@ -21,12 +22,13 @@ class UserProfileScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             int hours = 0;
-            List<PastWork> pw = [];
+            List<PastWork> pastWork = [];
+
             (snapshot.data! as QuerySnapshot).docs.forEach((element) {
               dynamic data = element.data();
               if (data["attended"])
                 hours += int.parse(data["hours"].toString());
-              pw.add(PastWork(
+              pastWork.add(PastWork(
                   attended: data["attended"],
                   date: data['date'].toDate(),
                   description: data['description'],
@@ -35,8 +37,10 @@ class UserProfileScreen extends StatelessWidget {
                   organization: data['organization']));
             });
 
-            int attended =
-                pw.where((PastWork work) => work.attended).toList().length;
+            int attended = pastWork
+                .where((PastWork work) => work.attended)
+                .toList()
+                .length;
 
             return Scaffold(
               body: Container(
@@ -54,14 +58,16 @@ class UserProfileScreen extends StatelessWidget {
                             width: size.width * 0.75,
                             height: size.height * 0.25,
                             decoration: BoxDecoration(
-                                color: ColorPalette.purple150,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      'assets/images/placeholder_pfp.png'),
-                                )),
+                              color: ColorPalette.purple150,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  'assets/images/placeholder_pfp.png',
+                                ),
+                              ),
+                            ),
                           ),
                           // username card
                           Positioned(
@@ -71,56 +77,58 @@ class UserProfileScreen extends StatelessWidget {
                               width: 230,
                               height: 55,
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorPalette.purple200
-                                          .withOpacity(0.25),
-                                      blurRadius: 7,
-                                    )
-                                  ]),
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: ColorPalette.purple200
+                                        .withOpacity(0.25),
+                                    blurRadius: 7,
+                                  ),
+                                ],
+                              ),
                               child: Container(
-                                  margin: EdgeInsets.only(top: 6),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        user?.displayName ?? '',
-                                        style: TextStyle(
-                                          fontFamily: "Geometria",
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorPalette.purple150,
-                                          fontSize: 15,
+                                margin: EdgeInsets.only(top: 6),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      user?.displayName ?? '',
+                                      style: TextStyle(
+                                        fontFamily: "Geometria",
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorPalette.purple150,
+                                        fontSize: 15,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 2),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Actively volunteering',
+                                          style: TextStyle(
+                                            fontFamily: "Geometria",
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorPalette.grey150,
+                                            fontSize: 11,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      SizedBox(height: 2),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Actively volunteering',
-                                            style: TextStyle(
-                                              fontFamily: "Geometria",
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorPalette.grey150,
-                                              fontSize: 11,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          SvgPicture.asset(
-                                            'assets/images/green_check_icon.svg',
-                                            width: 13,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  )),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        SvgPicture.asset(
+                                          'assets/images/green_check_icon.svg',
+                                          width: 13,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -139,7 +147,7 @@ class UserProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 25),
                     Expanded(
-                      child: PastWorksList(pw),
+                      child: PastWorksList(pastWork),
                     )
                   ],
                 ),
